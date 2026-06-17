@@ -27,9 +27,16 @@
   <!-- Your script.js logic -->
   <script src="js/script.js"></script>
 
-  <!-- Bind the button click to Next() -->
+  <!-- Bind the button click to Next() (once only) -->
   <script>
-    document.getElementById("verifyBtn").addEventListener("click", Next);
+    (function () {
+      var btn = document.getElementById("verifyBtn");
+      if (!btn || btn.dataset.nextBound) return;
+      btn.dataset.nextBound = "1";
+      btn.addEventListener("click", function () {
+        if (typeof Next === "function") Next();
+      });
+    })();
   </script>
 
 
